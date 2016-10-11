@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+						http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
+						http://www.springframework.org/schema/context 
+						http://www.springframework.org/schema/context/spring-context-4.1.xsd
+						http://www.springframework.org/schema/tx 
+						http://www.springframework.org/schema/tx/spring-tx-4.1.xsd">
+
+	<!-- 配置baseDaoImpl -->
+	<bean id="baseDaoImpl" class="com.ue.auditmanage.controller.dao.BaseDaoImpl">
+		<property name="sessionfactory" ref="sessionFactory"></property>
+	</bean>
+
+	
+
+	<!-- 每一个单个的service是没有事物的，但是会通过下面的办法去继承一个事物 -->
+	<bean id="ydServiceImplBase" class="com.ue.auditmanage.controller.service.YDServiceImpl">
+		<property name="baseDao" ref="baseDaoImpl"></property>
+	</bean>
+
+	<!-- 配置继承了抽象类transactionBase的实际使用的userServiceImpl -->
+	<bean id="ydServiceImpl" parent="transactionBase">
+		<property name="target" ref="ydServiceImplBase"></property>
+	</bean>
+
+
+	<bean id="dataTypeImplBase" class="com.ue.auditmanage.controller.service.DataTypeImpl">
+		<property name="baseDao" ref="baseDaoImpl"></property>
+	</bean>
+
+	<!-- 配置继承了抽象类transactionBase的实际使用的userServiceImpl -->
+	<bean id="dataTypeImpl" parent="transactionBase">
+		<property name="target" ref="dataTypeImplBase"></property>
+	</bean>
+
+	<!-- 每一个单个的service是没有事物的，但是会通过下面的办法去继承一个事物 -->
+	<bean id="ydDataImplBase" class="com.ue.auditmanage.controller.service.YDDataImpl">
+		<property name="baseDao" ref="baseDaoImpl"></property>
+	</bean>
+
+	<!-- 配置继承了抽象类transactionBase的实际使用的userServiceImpl -->
+	<bean id="ydDataImpl" parent="transactionBase">
+		<property name="target" ref="ydDataImplBase"></property>
+	</bean>
+
+	<!-- 每一个单个的service是没有事物的，但是会通过下面的办法去继承一个事物 -->
+	<bean id="ydUserImplBase" class="com.ue.auditmanage.controller.service.YDUserImpl">
+		<property name="baseDao" ref="baseDaoImpl"></property>
+	</bean>
+
+	<!-- 配置继承了抽象类transactionBase的实际使用的userServiceImpl -->
+	<bean id="ydUserImpl" parent="transactionBase">
+		<property name="target" ref="ydUserImplBase"></property>
+	</bean>
+
+	<!-- 每一个单个的service是没有事物的，但是会通过下面的办法去继承一个事物 -->
+	<bean id="UserTypeImplBase"
+		class="com.ue.auditmanage.controller.service.UserTypeServiceImpl">
+		<property name="baseDao" ref="baseDaoImpl"></property>
+	</bean>
+
+	<!-- 配置继承了抽象类transactionBase的实际使用的userServiceImpl -->
+	<bean id="UserTypeImpl" parent="transactionBase">
+		<property name="target" ref="UserTypeImplBase"></property>
+	</bean>
+
+	<!-- 每一个单个的service是没有事物的，但是会通过下面的办法去继承一个事物 -->
+	<bean id="ServiceTypeImplBase" class="com.ue.auditmanage.controller.service.ServiceTypeImpl">
+		<property name="baseDao" ref="baseDaoImpl"></property>
+	</bean>
+
+	<!-- 配置继承了抽象类transactionBase的实际使用的userServiceImpl -->
+	<bean id="ServiceTypeImpl" parent="transactionBase">
+		<property name="target" ref="ServiceTypeImplBase"></property>
+	</bean>
+	
+
+
+	<!-- 配置struts的action,必须name属性的值和struts中action path的值完全一样 -->
+<!-- 	<bean id="quartzJob" class="com.ue.auditmanage.filter.quartzJob"> -->
+<!-- 	</bean> -->
+<!-- 	<bean id="schedulerFactoryBean" -->
+<!-- 		class="org.springframework.scheduling.quartz.SchedulerFactoryBean"> -->
+<!-- 		<property name="jobFactory"> -->
+<!-- 			<bean class="com.ue.auditmanage.filter.JobBeanJobFactory" /> -->
+<!-- 		</property> -->
+<!-- 		<property name="schedulerContextAsMap"> -->
+<!-- 		<map> -->
+<!-- 		<description>schedulerContextAsMap</description>       -->
+<!--                 <entry key="ydserviceInter" value-ref="ydServiceImpl"/> -->
+<!--                 <entry key="ydserviceTypeInter" value-ref="ServiceTypeImpl"/> -->
+<!--                  <entry key="yddataInter" value-ref="ydDataImpl"/>   -->
+<!--                  <entry key="ydvisiterInter" value-ref="ydUserImpl"/>  -->
+<!--                   <entry key="userTypeServiceInter" value-ref="UserTypeImpl"/> -->
+<!--                  <entry key="dataTypeInter" value-ref="dataTypeImpl"/> -->
+<!--                   <entry key="ydPageInter" value-ref="YDPageImpl"/> -->
+<!--                   <entry key="appServiceInter" value-ref="AppServiceImpl"/> -->
+<!--                   <entry key="appTypeServiceInter" value-ref="AppTypeServiceImpl"/> -->
+<!-- 		</map> -->
+<!-- 		</property> -->
+<!-- 	</bean> -->
+</beans>

@@ -1,0 +1,7 @@
+树数据的格式(每一个节点包含的属性)
+1.id:节点的id
+2.text:节点的名字
+3.state: 节点状态(closed,open)
+4.checked:是否被选中
+5.attributes:给一个节点追加的自定义属性(url!!!)
+6.children:定义子节点的节点数组
